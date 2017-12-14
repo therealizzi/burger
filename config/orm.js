@@ -1,6 +1,6 @@
 
 //Create mysql connection import variable
-var connection = require("./connection");
+var connection = require("../config/connection.js");
 
 // Helper function for SQL syntax.
 function printQuestionMarks(num) {
@@ -28,8 +28,8 @@ function objToSql(ob) {
 
 //ORM variables for the SQL statements
 var orm = {
-	selectAll: function(cb) {
-		var queryString = "SELECT * FROM burgers;";
+	all: function(tableInput, cb) {
+		var queryString = "SELECT * FROM "+ tableInput +";";
 		connection.query(queryString, function(err, result) {
 			if(err) {
 				throw err;
@@ -37,7 +37,7 @@ var orm = {
 			cb(result);
 		});
 	},
-	insertOne: function(table, cols, vals, cb) {
+	create: function(table, cols, vals, cb) {
 		var queryString = "INSERT INTO " + table;
 		queryString += "(";
 		queryString += cols.toString();
@@ -54,7 +54,7 @@ var orm = {
 			cb(result);
 		});
 	},
-	updateOne: function(table, condition, cb) {
+	update: function(table, condition, cb) {
 		var queryString = "UPDATE " + table;
 		queryString += " WHERE ";
 		queryString += condition;

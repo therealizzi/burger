@@ -20,4 +20,5 @@ router.get("/", function(req, res) {
 //insert_One
 //update_One
 
+//Exports the routes to server.js to use
 module.exports = router;

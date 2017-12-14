@@ -3,22 +3,23 @@ var orm = require("../config/orm.js");
 
 var burger = {
 	all: function(cb) {
-		orm.selectAll(function(res) {
+		orm.all("burgers", function(res) {
 			cb(res);
 		});
 	},
 
-	create: function(table, cols, vals, cb) {
-		orm.insertOne(table, cols, valls, function(res) {
+	create: function(cols, vals, cb) {
+		orm.create("burgers", cols, vals, function(res) {
 			cb(res);
 		})
 	},
 
-	update: function(table, condition, cb) {
-		orm.updateOne(table, condition, function(res) {
+	update: function(objColVals, condition, cb) {
+		orm.update("burgers", objColVals, condition, function(res) {
 			cb(res);
 		});
 	}
 };
 
+// Export the database functions for the controller
 module.exports = burger;
