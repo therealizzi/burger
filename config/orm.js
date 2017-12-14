@@ -1,6 +1,6 @@
 
 //Create mysql connection import variable
-var connection = require('connection');
+var connection = require("./connection");
 
 // Helper function for SQL syntax.
 function printQuestionMarks(num) {
@@ -69,4 +69,4 @@ var orm = {
 	}
 };
 
-module.exports = orms;
+module.exports = orm;
