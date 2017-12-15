@@ -1,4 +1,3 @@
-
 //Create mysql connection import variable
 var connection = require("../config/connection.js");
 
@@ -28,22 +27,24 @@ function objToSql(ob) {
 
 //ORM variables for the SQL statements
 var orm = {
-	all: function(tableInput, cb) {
-		var queryString = "SELECT * FROM "+ tableInput +";";
-		connection.query(queryString, function(err, result) {
-			if(err) {
-				throw err;
-			}
-			cb(result);
-		});
-	},
+	  all: function(tableInput, cb) {
+	    var queryString = "SELECT * FROM " + tableInput + ";";
+	    connection.query(queryString, function(err, result) {
+	      if (err) {
+	        throw err;
+	      }
+	      cb(result);
+	    });
+	  },
 	create: function(table, cols, vals, cb) {
 		var queryString = "INSERT INTO " + table;
-		queryString += "(";
+
+		queryString += " (";
 		queryString += cols.toString();
 		queryString += ") ";
+		queryString += "VALUES (";
 		queryString += printQuestionMarks(vals.length);
-		queryString += ") ";
+		queryString += ");";
 
 		console.log(queryString);
 
@@ -54,19 +55,23 @@ var orm = {
 			cb(result);
 		});
 	},
-	update: function(table, condition, cb) {
-		var queryString = "UPDATE " + table;
-		queryString += " WHERE ";
-		queryString += condition;
+ 	update: function(table, objColVals, condition, cb) {
+    	var queryString = "UPDATE " + table;
 
-		connection.query(queryString, function(err, result) {
-			if(err) {
-				throw err;
-			}
+	    queryString += " SET ";
+	    queryString += objToSql(objColVals);
+	    queryString += " WHERE ";
+    	queryString += condition;
 
-			cb(result);
-		});
-	}
+	    console.log(queryString);
+    	connection.query(queryString, function(err, result) {
+      		if (err) {
+        		throw err;
+      		}
+
+	      	cb(result);
+    	});
+  	}
 };
 
 module.exports = orm;

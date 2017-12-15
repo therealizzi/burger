@@ -3,11 +3,11 @@ var express = require('express');
 var router = express.Router();
 
 // Using the 'burger' model
-var burger = require('../models/burgers.js');
+var burgers = require('../models/burgers.js');
 
 // Create the routes and logic for the app
 router.get("/", function(req, res) {
-	burger.all(function(data) {
+	burgers.all(function(data) {
 		var hbsObject = {
 			burgers: data
 		};
@@ -16,9 +16,31 @@ router.get("/", function(req, res) {
 	});
 });
 
-//Need to add remaining routes
-//insert_One
-//update_One
+router.post("/", function(req, res) {
+	burgers.create([
+		"burger_name", "devoured"
+	], [
+		req.body.name, req.body.devoured
+	], function() {
+		res.redirect("/");
+	});
+});
+
+router.put("/:id", function(req, res) {
+
+	console.log(req.body.name);
+	console.log(req.body.devoured);
+
+	var condition = "id = " + req.params.id;
+
+	console.log("condition", condition);
+
+	burgers.update({
+		devoured: req.body.devoured
+	}, condition, function() {
+		res.redirect("/");
+	});
+});
 
 //Exports the routes to server.js to use
 module.exports = router;
