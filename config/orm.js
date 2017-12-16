@@ -38,7 +38,6 @@ var orm = {
 	  },
 	create: function(table, cols, vals, cb) {
 		var queryString = "INSERT INTO " + table;
-
 		queryString += " (";
 		queryString += cols.toString();
 		queryString += ") ";
@@ -57,7 +56,6 @@ var orm = {
 	},
  	update: function(table, objColVals, condition, cb) {
     	var queryString = "UPDATE " + table;
-
 	    queryString += " SET ";
 	    queryString += objToSql(objColVals);
 	    queryString += " WHERE ";
@@ -68,10 +66,10 @@ var orm = {
       		if (err) {
         		throw err;
       		}
-
 	      	cb(result);
     	});
   	}
 };
 
+//Exports the module to the models file
 module.exports = orm;

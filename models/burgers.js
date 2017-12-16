@@ -1,6 +1,7 @@
-
+// Imports orm file
 var orm = require("../config/orm.js");
 
+// Creates the interaction variables for the database (via orms file)
 var burgers = {
 	all: function(cb) {
 		orm.all("burgers", function(res) {

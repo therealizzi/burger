@@ -15,7 +15,6 @@ router.get("/", function(req, res) {
 		res.render("index", hbsObject);
 	});
 });
-
 router.post("/", function(req, res) {
 	burgers.create([
 		"burger_name", "devoured"
@@ -25,16 +24,8 @@ router.post("/", function(req, res) {
 		res.redirect("/");
 	});
 });
-
 router.put("/:id", function(req, res) {
-
-	console.log(req.body.name);
-	console.log(req.body.devoured);
-
 	var condition = "id = " + req.params.id;
-
-	console.log("condition", condition);
-
 	burgers.update({
 		devoured: req.body.devoured
 	}, condition, function() {
